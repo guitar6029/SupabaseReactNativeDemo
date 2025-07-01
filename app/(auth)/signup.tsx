@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
@@ -45,6 +46,11 @@ export default function SignupScreen() {
       />
 
       <Button title={loading ? 'Loading...' : 'Sign Up'} onPress={handleSignup} disabled={loading} />
+      <Pressable onPress={() => router.push('/(auth)/login')}>
+        <Text style={{ marginTop: 16, color: 'blue' }}>
+          Already have an account? Sign in
+        </Text>
+      </Pressable>
     </View>
   );
 }

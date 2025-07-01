@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -41,6 +41,11 @@ export default function Login() {
       />
       <Button title="Login" onPress={handleLogin} />
       {error ? <Text style={styles.error}>{error}</Text> : null}
+      <Pressable onPress={() => router.push('/(auth)/signup')}>
+        <Text style={{ marginTop: 16, color: 'blue' }}>
+          Don’t have an account? Register here
+        </Text>
+      </Pressable>
     </View>
   );
 }
