@@ -1,3 +1,4 @@
+import { supabase } from '@/lib/supabase';
 import { useState } from 'react';
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -7,9 +8,20 @@ export default function SignupScreen() {
   const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
-    // We'll add Supabase logic here in Step 3
-    Alert.alert('Signing up...', `${email}`);
-  };
+  setLoading(true);
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  setLoading(false);
+
+  if (error) {
+    Alert.alert('Signup failed', error.message);
+  } else {
+    Alert.alert('Check your email', 'A confirmation email has been sent.');
+  }
+};
 
   return (
     <View style={styles.container}>
